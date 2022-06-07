@@ -32,4 +32,14 @@ export default class UsersRepository {
 
         return rows[0];
     };
+
+    static getUserById = async (id) => {
+        const query = sqlstring.format('SELECT * FROM users WHERE id = ?', [
+            id,
+        ]);
+
+        const { rows } = await db.query(query);
+
+        return rows[0];
+    };
 }
