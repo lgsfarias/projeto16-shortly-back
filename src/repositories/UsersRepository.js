@@ -53,9 +53,9 @@ export default class UsersRepository {
                 'url', urls.url,
                 'shortUrl', urls."shortUrl",
                 'visitCount', urls."visitCount"
-            )) AS urls
+            )) AS "shortenedUrls"
             FROM users 
-            JOIN urls ON urls."userId" = users.id
+            LEFT JOIN urls ON urls."userId" = users.id
             WHERE users.id = ? 
             GROUP BY users.id, users.name`,
             [id]
