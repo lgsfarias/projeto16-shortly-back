@@ -22,4 +22,14 @@ export default class UsersRepository {
 
         return rows[0];
     };
+
+    static getUserByEmail = async (email) => {
+        const query = sqlstring.format('SELECT * FROM users WHERE email = ?', [
+            email,
+        ]);
+
+        const { rows } = await db.query(query);
+
+        return rows[0];
+    };
 }
