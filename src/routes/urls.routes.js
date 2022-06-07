@@ -7,5 +7,6 @@ const urlsRouter = Router();
 urlsRouter.post('/shorten', verifyToken, UrlsController.createUrl);
 urlsRouter.get('/open/:shortUrl', UrlsController.redirectUrl);
 urlsRouter.get('/:id', UrlsController.getUrlById);
+urlsRouter.delete('/:id', verifyToken, UrlsController.deleteUrl);
 
 export default urlsRouter;

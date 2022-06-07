@@ -40,4 +40,10 @@ export default class UrlRepository {
 
         await db.query(query);
     };
+
+    static deleteUrl = async (id) => {
+        const query = sqlstring.format('DELETE FROM urls WHERE id = ?', [id]);
+
+        await db.query(query);
+    };
 }
