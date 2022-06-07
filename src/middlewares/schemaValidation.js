@@ -1,6 +1,6 @@
 const schemavalidation = (schema) => {
     return (req, res, next) => {
-        const { value, error } = schema.validate(req.body, {
+        const { error } = schema.validate(req.body, {
             abortEarly: false,
         });
 
@@ -10,8 +10,6 @@ const schemavalidation = (schema) => {
                 error: error.details.map((err) => err.message),
             });
         }
-
-        res.locals.category = value;
 
         next();
     };
