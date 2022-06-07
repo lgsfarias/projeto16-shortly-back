@@ -5,6 +5,7 @@ const usersRouter = Router();
 
 usersRouter.post('/signup', UsersController.createUser);
 usersRouter.post('/signin', UsersController.signin);
+usersRouter.get('/users/ranking', UsersController.getUsersRanking);
 usersRouter.get('/users/:id', UsersController.getUserByIdWithUrls);
 
 export default usersRouter;

@@ -103,4 +103,15 @@ export default class UsersController {
             res.status(500).json(error);
         }
     };
+
+    static getUsersRanking = async (req, res) => {
+        try {
+            const users = await UsersRepository.getUsersVisitCountRanking();
+
+            res.status(200).json(users);
+        } catch (error) {
+            console.log({ error });
+            res.status(500).json(error);
+        }
+    };
 }
