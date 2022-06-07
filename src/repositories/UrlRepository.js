@@ -12,4 +12,32 @@ export default class UrlRepository {
 
         return rows[0];
     };
+
+    static getUrlById = async (id) => {
+        const query = sqlstring.format('SELECT * FROM urls WHERE id = ?', [id]);
+
+        const { rows } = await db.query(query);
+
+        return rows[0];
+    };
+
+    static getUrlByShortUrl = async (shortUrl) => {
+        const query = sqlstring.format(
+            'SELECT * FROM urls WHERE "shortUrl" = ?',
+            [shortUrl]
+        );
+
+        const { rows } = await db.query(query);
+
+        return rows[0];
+    };
+
+    static IncreaseVisits = async (shortUrl) => {
+        const query = sqlstring.format(
+            'UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE "shortUrl" = ?',
+            [shortUrl]
+        );
+
+        await db.query(query);
+    };
 }
