@@ -46,4 +46,26 @@ export default class UrlRepository {
 
         await db.query(query);
     };
+
+    static getUrlsByUserId = async (userId) => {
+        const query = sqlstring.format(
+            'SELECT * FROM urls WHERE "userId" = ?',
+            [userId]
+        );
+
+        const { rows } = await db.query(query);
+
+        return rows;
+    };
+
+    static getVisitedCount = async (userId) => {
+        const query = sqlstring.format(
+            'SELECT SUM("visitCount") FROM urls WHERE "userId" = ?',
+            [userId]
+        );
+
+        const { rows } = await db.query(query);
+
+        return rows[0].sum;
+    };
 }

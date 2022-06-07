@@ -1,4 +1,5 @@
 import UsersRepository from '../repositories/UsersRepository.js';
+import UrlRepository from '../repositories/UrlRepository.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
@@ -73,6 +74,26 @@ export default class UsersController {
             res.status(200).json({
                 token,
             });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    };
+
+    static getUserByIdWithUrls = async (req, res) => {
+        const { id } = req.params;
+
+        try {
+            const user = await UsersRepository.getUserByIdWithUrlsRelationship(
+                id
+            );
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'User not found',
+                });
+            }
+
+            res.status(200).json(user);
         } catch (error) {
             res.status(500).json(error);
         }

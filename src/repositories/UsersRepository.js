@@ -42,4 +42,27 @@ export default class UsersRepository {
 
         return rows[0];
     };
+
+    static getUserByIdWithUrlsRelationship = async (id) => {
+        const query = sqlstring.format(
+            `SELECT users.id,
+            users.name,
+            SUM(urls."visitCount") AS "visitCount",
+            json_agg(json_build_object(
+                'id', urls.id,
+                'url', urls.url,
+                'shortUrl', urls."shortUrl",
+                'visitCount', urls."visitCount"
+            )) AS urls
+            FROM users 
+            JOIN urls ON urls."userId" = users.id
+            WHERE users.id = ? 
+            GROUP BY users.id, users.name`,
+            [id]
+        );
+
+        const { rows } = await db.query(query);
+
+        return rows[0];
+    };
 }
