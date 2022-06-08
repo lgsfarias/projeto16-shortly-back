@@ -5,13 +5,14 @@ export default class UrlsController {
     static createUrl = async (req, res) => {
         const { url } = req.body;
         const shortUrl = crypto.randomBytes(6).toString('base64');
+        const shortUrlWithoutSlash = shortUrl.replace(/\//g, '');
 
         const userId = res.locals.user.id;
 
         try {
             const urlCreated = await UrlRepository.createUrl({
                 url,
-                shortUrl,
+                shortUrl: shortUrlWithoutSlash,
                 userId,
             });
 

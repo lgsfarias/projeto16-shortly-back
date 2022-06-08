@@ -34,8 +34,16 @@ export default class UsersController {
 
             res.status(200).json(users);
         } catch (error) {
-            console.log({ error });
             res.status(500).json(error);
         }
+    };
+
+    static getUserById = async (req, res) => {
+        const { user } = res.locals;
+        delete user.email;
+        delete user.password;
+        delete user.createdAt;
+
+        res.status(200).json({ user });
     };
 }
