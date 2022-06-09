@@ -6,8 +6,7 @@ const schemavalidation = (schema) => {
 
         if (error) {
             return res.status(422).json({
-                message: 'Validation failed',
-                error: error.details.map((err) => err.message),
+                message: error.details.map((err) => err.message),
             });
         }
 
