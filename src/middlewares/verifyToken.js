@@ -15,7 +15,7 @@ const verifyToken = async (req, res, next) => {
 
     if (authorization.slice(0, 7) !== 'Bearer ') {
         return res.status(422).json({
-            message: 'Invalid token',
+            message: 'Invalid authorization header',
         });
     }
 
